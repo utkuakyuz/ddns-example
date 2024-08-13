@@ -1,0 +1,5 @@
+
+zone "test.mywebapp.biz" {
+    type master;
+    file "/etc/bind/zones/db.test.mywebapp.biz";
+};

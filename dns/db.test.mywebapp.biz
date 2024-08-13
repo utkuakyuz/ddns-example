@@ -1,0 +1,15 @@
+$TTL    604800
+@       IN      SOA     test.mywebapp.biz. root.test.mywebapp.biz. (
+                            2         ; Serial
+                            604800    ; Refresh
+                            86400     ; Retry
+                            2419200   ; Expire
+                            604800 )  ; Negative Cache TTL
+;
+@       IN      NS      ns.test.mywebapp.biz.
+ns      IN      A       172.18.0.2
+
+
+frontend1 IN     A      172.18.0.3
+frontend2 IN     A      172.18.0.4
+backend  IN     A      172.18.0.5

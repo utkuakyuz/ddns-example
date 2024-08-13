@@ -1,0 +1,55 @@
+networks:
+  mynet:
+    external: true
+
+services:
+  backend:
+    image: nodeapp4
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - mynet
+
+  frontend1:
+    build: 
+      context: ./frontend1
+    ports:
+      - "3000:3000"
+    networks:
+      - mynet
+
+  frontend2:
+    build:
+      context: ./frontend2
+    networks:
+      - mynet
+    ports:
+      - "3001:3001"
+      
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: postgres
+    networks:
+      - mynet
+    ports:
+      - "5432:5432"
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend1
+      - frontend2
+      - backend
+      - postgres
+    networks:
+      - mynet
+
